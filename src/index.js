@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 //since bootstrap is added in index.js it is available to entire application
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
