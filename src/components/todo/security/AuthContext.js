@@ -95,11 +95,11 @@ export default function AuthProvider({ children }){ //provides auth context to a
             )
             return true;
         } else {
-            logout();
+            setAuthenticated(false);
             return false;
         }
     }catch(error){
-            logout();
+            setAuthenticated(false);
             return false;
     }
     }

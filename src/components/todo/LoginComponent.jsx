@@ -50,7 +50,7 @@ function LoginComponent() {
             <h1>Time to login!</h1>
             {/* <SuccessMessageComponent/>
             <ErrorMessageComponent/> */}
-            {showErrorMessage && <div className="errrorMessage">Authenticated Failed. Please Check you credentials.</div>}
+            {showErrorMessage && <div className="errrorMessage" style={{color: "red"}}>Authenticated Failed. Please Check you credentials.</div>}
             <div className="LoginForm">
                 <div>
                     <label>User Name</label>
