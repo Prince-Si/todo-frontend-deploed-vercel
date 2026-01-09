@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "./security/AuthContext";
 import { useState } from "react";
+import FullLogo from '../../assets/FullLogo.png';
 
 function HeaderComponent() {
   const { isAuthenticated, username, logout } = useAuth();
@@ -17,7 +18,7 @@ function HeaderComponent() {
               to="/"
               className="text-2xl font-bold text-white no-underline"
             >
-              TaskSphere
+              <img src={FullLogo}  alt="TaskSphere" className="h-8 w-auto object-contain md:h-9"/>
             </Link>
 
             {/* DESKTOP: Home + Todos */}
