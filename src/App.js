@@ -6,7 +6,7 @@ import TodoApp from './components/todo/TodoApp'
 
 function App() {
   return (
-    <div className="App">
+    <div className="App min-h-screen bg-gray-950 text-gray-100 font-sans">
       {/* <PlayingWithProps property1="value1" property2="value2"/> */}
       {/* <Counter/> */}
       <TodoApp/>

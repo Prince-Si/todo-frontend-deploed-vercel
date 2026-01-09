@@ -1,14 +1,11 @@
-
-
 function FooterComponent() {
     return (
-        <footer className="footer">
-            <div className="container">
-                <span>&copy;princesingh.co.in 2025</span>
+        <footer className="bg-gray-800 text-white py-4 mb-3 pt-3 w-full">
+            <div className="container mx-auto text-center">
+                <span>&copy; 2025 princesingh.co.in</span>
             </div>
         </footer>
-    )
+    );
 }
-
 
 export default FooterComponent;

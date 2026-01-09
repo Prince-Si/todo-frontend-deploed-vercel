@@ -46,7 +46,10 @@ function WelcomeComponent() {
                 Manage Your todos - <Link to="/todos">Go Here</Link>
             </div>
             <div>
-                <button className="btn btn-success m-5" onClick={callHelloWorldRestApi}>Call Hello World</button>
+                <button className="m-5 w-40 rounded-lg bg-green-600 px-6 py-2.5 font-medium text-white shadow hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 active:scale-95 transition" 
+                onClick={callHelloWorldRestApi}>
+                    Call Hello World
+                </button>
             </div>
             <div className="text-info">{message}</div>
         </div>

@@ -1,88 +1,127 @@
-import { Link } from 'react-router-dom';
-import { useAuth } from './security/AuthContext';
+import { Link } from "react-router-dom";
+import { useAuth } from "./security/AuthContext";
+import { useState } from "react";
 
 function HeaderComponent() {
+  const { isAuthenticated, username, logout } = useAuth();
+  const [menuOpen, setMenuOpen] = useState(false);
 
-    const authContext = useAuth();
-    const isAuthenticated = authContext.isAuthenticated;
+  return (
+    <header className="border-b border-gray-800">
+      <nav className="w-full bg-gray-950 backdrop-blur z-50">
+        <div className="mx-auto max-w-7xl px-4">
+          <div className="flex h-16 items-center gap-6">
 
-    function logout() {
-        authContext.logout();
-    }
+            {/* BRAND (always visible) */}
+            <Link
+              to="/"
+              className="text-2xl font-bold text-white no-underline"
+            >
+              TaskSphere
+            </Link>
 
-    return (
-        <header className="border-bottom border-light border-5 mb-3">
-            <nav className="navbar navbar-expand-lg navbar-light bg-white px-3">
-                
-                {/* Brand */}
-                <Link className="navbar-brand fs-2 fw-bold text-black" to="/">
-                    TaskSphere
+            {/* DESKTOP: Home + Todos */}
+            {isAuthenticated && (
+              <div className="hidden lg:flex items-center gap-6">
+                <Link
+                  to={`/welcome/${username}`}
+                  className="text-gray-300 hover:text-white no-underline"
+                >
+                  Home
+                </Link>
+                <Link
+                  to="/todos"
+                  className="text-gray-300 hover:text-white no-underline"
+                >
+                  Todos
+                </Link>
+              </div>
+            )}
+
+            {/* DESKTOP: Login / Logout (right aligned) */}
+            <div className="ml-auto hidden lg:flex items-center gap-6">
+              {!isAuthenticated && (
+                <Link
+                  to="/login"
+                  className="text-gray-300 hover:text-white no-underline"
+                >
+                  Login
+                </Link>
+              )}
+
+              {isAuthenticated && (
+                <Link
+                  to="/logout"
+                  onClick={logout}
+                  className="text-gray-300 hover:text-white no-underline"
+                >
+                  Logout
+                </Link>
+              )}
+            </div>
+
+            {/* MOBILE: Hamburger */}
+            <button
+              className="ml-auto lg:hidden inline-flex items-center justify-center rounded-md border border-gray-600 p-2 text-gray-200 hover:bg-gray-800"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Toggle menu"
+            >
+              {menuOpen ? "✕" : "☰"}
+            </button>
+          </div>
+        </div>
+
+        {/* MOBILE MENU */}
+        {menuOpen && (
+          <div className="lg:hidden border-t border-gray-800 bg-gray-950 px-4 py-3 space-y-2">
+
+            {isAuthenticated && (
+              <>
+                <Link
+                  to={`/welcome/${username}`}
+                  onClick={() => setMenuOpen(false)}
+                  className="block rounded-md px-3 py-2 text-gray-300 hover:bg-gray-800 no-underline"
+                >
+                  Home
                 </Link>
 
-                {/* Hamburger Button */}
-                <button
-                    className="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarContent"
-                    aria-controls="navbarContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
+                <Link
+                  to="/todos"
+                  onClick={() => setMenuOpen(false)}
+                  className="block rounded-md px-3 py-2 text-gray-300 hover:bg-gray-800 no-underline"
                 >
-                    <span className="navbar-toggler-icon"></span>
-                </button>
+                  Todos
+                </Link>
+              </>
+            )}
 
-                {/* Collapsible Content */}
-                <div className="collapse navbar-collapse" id="navbarContent">
-                    
-                    {/* Left Links */}
-                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        {isAuthenticated && (
-                            <>
-                                <li className="nav-item">
-                                    <Link
-                                        className="nav-link"
-                                        to={`/welcome/${authContext.username}`}
-                                    >
-                                        Home
-                                    </Link>
-                                </li>
+            {!isAuthenticated && (
+              <Link
+                to="/login"
+                onClick={() => setMenuOpen(false)}
+                className="block rounded-md px-3 py-2 text-gray-300 hover:bg-gray-800 no-underline"
+              >
+                Login
+              </Link>
+            )}
 
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/todos">
-                                        Todos
-                                    </Link>
-                                </li>
-                            </>
-                        )}
-                    </ul>
-
-                    {/* Right Links */}
-                    <ul className="navbar-nav">
-                        {!isAuthenticated && (
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/login">
-                                    Login
-                                </Link>
-                            </li>
-                        )}
-
-                        {isAuthenticated && (
-                            <li className="nav-item">
-                                <Link
-                                    className="nav-link"
-                                    to="/logout"
-                                    onClick={logout}
-                                >
-                                    Logout
-                                </Link>
-                            </li>
-                        )}
-                    </ul>
-                </div>
-            </nav>
-        </header>
-    );
+            {isAuthenticated && (
+              <Link
+                to="/logout"
+                onClick={() => {
+                  logout();
+                  setMenuOpen(false);
+                }}
+                className="block rounded-md px-3 py-2 text-gray-300 hover:bg-gray-800 no-underline"
+              >
+                Logout
+              </Link>
+            )}
+          </div>
+        )}
+      </nav>
+    </header>
+  );
 }
 
 export default HeaderComponent;

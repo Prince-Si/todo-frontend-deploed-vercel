@@ -41,21 +41,21 @@ export default function TodoComponent() {
             done: false
         }
 
-        if(id==-1){
+        if (id == -1) {
             createTodoApi(username, todo)
-            .then(response => {
-               
-                navigate('/todos');
-            })
-            .catch(error => console.log(error))
+                .then(response => {
+
+                    navigate('/todos');
+                })
+                .catch(error => console.log(error))
         }
-        else{
-        updateTodoApi(username, id, todo)
-            .then(response => {
-                //console.log(response);
-                navigate('/todos');
-            })
-            .catch(error => console.log(error))
+        else {
+            updateTodoApi(username, id, todo)
+                .then(response => {
+                    //console.log(response);
+                    navigate('/todos');
+                })
+                .catch(error => console.log(error))
         }
     }
 
@@ -68,7 +68,7 @@ export default function TodoComponent() {
             errors.description = 'Enter atleast 5 characters';
         }
 
-        if (values.targetDate == null || values.targetDate=='' || !moment(values.targetDate).isValid()) {
+        if (values.targetDate == null || values.targetDate == '' || !moment(values.targetDate).isValid()) {
             errors.targetDate = 'Target date cannot be null';
         }
 
@@ -76,46 +76,60 @@ export default function TodoComponent() {
     }
 
     return (
-        <div className="container">
-            <h1>Enter Todo Details</h1>
+        <div className="container mx-auto p-6">
+            <h1 className="text-2xl font-bold mb-6">Enter Todo Details</h1>
             <div>
-                <Formik initialValues={{ description, targetDate }}
+                <Formik
+                    initialValues={{ description, targetDate }}
                     enableReinitialize={true}
                     onSubmit={onSubmit}
                     validate={validate}
                     validateOnChange={false}
                     validateOnBlur={false}
                 >
-                    {
-                        (props) => (
-                            <Form>
-                                <ErrorMessage
+                    {(props) => (
+                        <Form className="space-y-4">
+                            <ErrorMessage
+                                name="description"
+                                component="div"
+                                className="text-yellow-700 bg-yellow-100 p-2 rounded"
+                            />
+                            <fieldset className="flex flex-col">
+                                <label className="mb-2 font-medium text-gray-300">Description</label>
+                                <Field
+                                    type="text"
+                                    className="border text-black border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                                     name="description"
-                                    componenet="div"
-                                    className="alert alert-warning"
                                 />
-                                <fieldset className="form-group">
-                                    <label>Description</label>
-                                    <Field type="text" className="form-control" name="description" />
-                                </fieldset>
+                            </fieldset>
 
-                                <ErrorMessage
+                            <ErrorMessage
+                                name="targetDate"
+                                component="div"
+                                className="text-yellow-700 bg-yellow-100 p-2 rounded"
+                            />
+                            <fieldset className="flex flex-col">
+                                <label className="mb-2 font-medium text-gray-300">Target Date</label>
+                                <Field
+                                    type="date"
+                                    className="border text-black border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                                     name="targetDate"
-                                    componenet="div"
-                                    className="alert alert-warning"
                                 />
-                                <fieldset className="form-group">
-                                    <label>Target Date</label>
-                                    <Field type="date" className="form-control" name="targetDate" />
-                                </fieldset>
-                                <div>
-                                    <button className="btn btn-success m-5" type="submit">Save</button>
-                                </div>
-                            </Form>
-                        )
-                    }
+                            </fieldset>
+
+                            <div className="mt-4">
+                                <button
+                                    className="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-2 rounded transition-colors"
+                                    type="submit"
+                                >
+                                    Save
+                                </button>
+                            </div>
+                        </Form>
+                    )}
                 </Formik>
             </div>
         </div>
+
     )
 }

@@ -28,7 +28,9 @@ export default function TodoApp() {
         <div className="TodoApp">
             <AuthProvider>
             <BrowserRouter>
+            <div className="flex flex-col min-h-screen">
                 <HeaderComponent />
+                <main className="flex-grow">
                 <Routes>
                     <Route path='/' element={<LoginComponent />}></Route>
                     <Route path='/login' element={<LoginComponent />}></Route>
@@ -55,7 +57,9 @@ export default function TodoApp() {
 
                     <Route path='*' element={<ErrorComponent />} />
                 </Routes>
+                </main>
                 <FooterComponent />
+            </div>
             </BrowserRouter>
             </AuthProvider>
 

@@ -1,6 +1,6 @@
-import {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {useAuth} from './security/AuthContext';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from './security/AuthContext';
 function LoginComponent() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -21,7 +21,7 @@ function LoginComponent() {
     async function handleSubmit() {
         console.log(username);
         console.log(password);
-        if (await authContext.login(username,password)) {
+        if (await authContext.login(username, password)) {
             navigate(`/welcome/${username}`); // this in28minutes is not part of url but it is the param. tick is used insted of quote when a variable is there
 
         } else {
@@ -50,18 +50,57 @@ function LoginComponent() {
             <h1>Time to login!</h1>
             {/* <SuccessMessageComponent/>
             <ErrorMessageComponent/> */}
-            {showErrorMessage && <div className="errrorMessage" style={{color: "red"}}>Authentication Failed. Please Check you credentials.</div>}
-            <div className="LoginForm">
-                <div>
-                    <label>User Name</label>
-                    <input type="text" name="username" value={username} onChange={handleUsernameChange} />
+            {showErrorMessage && (
+                <div
+                    role="alert"
+                    className="mx-auto mt-4 flex max-w-sm items-start gap-3 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-red-400 mb-3"
+                >
+                    <span className="text-xl leading-none">⚠️</span>
+                    <div>
+                        <p className="font-medium">Authentication failed</p>
+                        <p className="text-sm text-red-300">
+                            Invalid username or password.
+                        </p>
+                    </div>
                 </div>
-                <div>
-                    <label>Password</label>
-                    <input type="password" name="password" value={password} onChange={handlePasswordChange} />
+            )}
+
+
+            <div className="LoginForm bg-gray-900 p-6 rounded-lg shadow-lg w-96 mx-auto">
+                {/* Username row */}
+                <div className="flex items-center mb-4">
+                    <label className="w-24 text-gray-300 text-sm">User Name</label>
+                    <input
+                        className="flex-1 text-black shadow-md border rounded-lg p-2 text-sm"
+                        type="text"
+                        name="username"
+                        value={username}
+                        onChange={handleUsernameChange}
+                    />
                 </div>
-                <div>
-                    <button type="button" name="login" onClick={handleSubmit}>Login</button>
+
+                {/* Password row */}
+                <div className="flex items-center mb-4">
+                    <label className="w-24 text-gray-300 text-sm">Password</label>
+                    <input
+                        className="flex-1 text-black shadow-md border rounded-lg p-2 text-sm"
+                        type="password"
+                        name="password"
+                        value={password}
+                        onChange={handlePasswordChange}
+                    />
+                </div>
+
+                {/* Button row */}
+                <div className="flex justify-end">
+                    <button
+                        type="button"
+                        name="login"
+                        onClick={handleSubmit}
+                        className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 text-sm"
+                    >
+                        Login
+                    </button>
                 </div>
             </div>
         </div>
